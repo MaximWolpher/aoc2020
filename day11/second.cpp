@@ -36,8 +36,6 @@ bool step(vector<vector<char>> &arr){
     bool change = false;
     size_t check_r;
     size_t check_c;
-    int mult_r = 1;
-    int mult_c = 1;
     for (size_t row = 0; row < arr.size(); row++){
         for (size_t col = 0; col < arr[row].size(); col++){
             seat = arr[row][col];
@@ -45,10 +43,8 @@ bool step(vector<vector<char>> &arr){
             if (seat == 'L'){
                 found = false;
                 for (int i = 0; i < 8; i++){
-                    mult_c = 1;
-                    mult_r = 1;
-                    check_r = row + (mult_r * adj_r[i]);
-                    check_c = col + (mult_c * adj_c[i]);
+                    check_r = row + adj_r[i];
+                    check_c = col + adj_c[i];
                     while (check_r >= 0 && check_r < arr.size() && check_c >= 0 && check_c <= arr[row].size()){
                         if (arr[check_r][check_c] == '#'){
                             found = true;
@@ -57,10 +53,8 @@ bool step(vector<vector<char>> &arr){
                         if (arr[check_r][check_c] == 'L'){
                             break;
                         }
-                        mult_r++;
-                        mult_c++;
-                        check_r = row + (mult_r * adj_r[i]);
-                        check_c = col + (mult_c * adj_c[i]);
+                        check_r += adj_r[i];
+                        check_c += adj_c[i];
                     }
                 }
                 if (!found){
@@ -72,10 +66,8 @@ bool step(vector<vector<char>> &arr){
             if (seat == '#'){
                 counter = 0;
                 for (int i = 0; i < 8; i++){
-                    mult_c = 1;
-                    mult_r = 1;
-                    check_r = row + (mult_r * adj_r[i]);
-                    check_c = col + (mult_c * adj_c[i]);
+                    check_r = row + adj_r[i];
+                    check_c = col + adj_c[i];
                     while (check_r >= 0 && check_r < arr.size() && check_c >= 0 && check_c <= arr[row].size()){
                         if (arr[check_r][check_c] == '#'){
                             counter++;
@@ -84,10 +76,8 @@ bool step(vector<vector<char>> &arr){
                         if (arr[check_r][check_c] == 'L'){
                             break;
                         }
-                        mult_r++;
-                        mult_c++;
-                        check_r = row + (mult_r * adj_r[i]);
-                        check_c = col + (mult_c * adj_c[i]);
+                        check_r += adj_r[i];
+                        check_c += adj_c[i];
                     }
                 }
                 if (counter >= 5){
