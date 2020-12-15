@@ -11,7 +11,6 @@ using namespace std;
 int main()
 {
     string line;
-    int val;
     vector<int> vec;
     unordered_map<int, int> um;
 
@@ -31,22 +30,23 @@ int main()
         um[vec[i]] = i;
     }
     int idx = vec.size() - 1;
-    size_t find = 30000000;
-    while (vec.size() < find){
-        val = vec.back();
-        if (um.find(val) == um.end()){
-            vec.push_back(0);
-            um[val] = idx;
+    int find = 30000000;
+    int last = vec[vec.size() - 1];
+
+    while (idx < find - 1){
+        if (um.find(last) == um.end()){
+            um[last] = idx;
+            last = 0;
         }
         else {
-            int new_val = idx - um.at(val);
-            vec.push_back(new_val);
-            um[val] = idx;
+            int new_val = idx - um.at(last);
+            um[last] = idx;
+            last = new_val;
         }
         idx++;
     }
 
-    cout << vec[find - 1] << endl;
+    cout << last << endl;
 
     return 0;
 }
